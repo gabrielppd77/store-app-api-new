@@ -1,5 +1,7 @@
 import { Body, Controller, Post } from '@nestjs/common';
 
+import { Public } from '@infra/decorators/public.decorator';
+
 import { UserCreate } from '@app/use-cases/user-create';
 import { UserLogin } from '@app/use-cases/user-login';
 
@@ -10,6 +12,7 @@ import { UserLoginDTO } from '../dtos/user-login.dto';
 export class UserController {
   constructor(private userCreate: UserCreate, private userLogin: UserLogin) {}
 
+  @Public()
   @Post('create')
   async create(@Body() body: UserCreateDTO) {
     const { email, password } = body;
@@ -26,6 +29,7 @@ export class UserController {
     };
   }
 
+  @Public()
   @Post('login')
   async login(@Body() body: UserLoginDTO) {
     const { email, password } = body;

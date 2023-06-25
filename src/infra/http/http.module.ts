@@ -1,5 +1,8 @@
+import { APP_GUARD } from '@nestjs/core';
 import { Module } from '@nestjs/common';
 import { JwtModule } from '@nestjs/jwt';
+
+import { AuthGuard } from '@infra/guards/auth.guard';
 
 import { DatabaseModule } from '@infra/database/database.module';
 
@@ -17,6 +20,13 @@ import { UserLogin } from '@app/use-cases/user-login';
     }),
   ],
   controllers: [UserController],
-  providers: [UserCreate, UserLogin],
+  providers: [
+    {
+      provide: APP_GUARD,
+      useClass: AuthGuard,
+    },
+    UserCreate,
+    UserLogin,
+  ],
 })
 export class HttpModule {}
