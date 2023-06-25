@@ -1,13 +1,13 @@
 import { User } from '@app/entities/user';
 import { InMemoryUserRepository } from '@test/repositories/in-memory-user.repository';
 
-import { CreateUser } from './create-user';
+import { UserCreate } from './user-create';
 import { EmailInUseException } from './exceptions/email-in-use.exception';
 
-describe('CreateUser', () => {
+describe('UserCreate', () => {
   it('should be able to create an user', async () => {
     const userRepository = new InMemoryUserRepository();
-    const createUser = new CreateUser(userRepository);
+    const userCreate = new UserCreate(userRepository);
 
     const userToCreate = {
       email: 'emailValid@email.com',
@@ -15,7 +15,7 @@ describe('CreateUser', () => {
       password: '1234',
     };
 
-    await createUser.execute(userToCreate);
+    await userCreate.execute(userToCreate);
 
     const userCreatedInDB = userRepository.users[0];
 
@@ -29,7 +29,7 @@ describe('CreateUser', () => {
 
   it('should show error when found email that has been registred', async () => {
     const userRepository = new InMemoryUserRepository();
-    const createUser = new CreateUser(userRepository);
+    const userCreate = new UserCreate(userRepository);
 
     const emailRepeated = 'email@valid.com';
 
@@ -42,7 +42,7 @@ describe('CreateUser', () => {
 
     expect(
       async () =>
-        await createUser.execute({
+        await userCreate.execute({
           email: emailRepeated,
           password: '1234',
         }),

@@ -1,6 +1,6 @@
 import { MaxLength, IsString, IsEmail, Length } from 'class-validator';
 
-export class CreateUserBody {
+export class UserCreateDTO {
   @MaxLength(55)
   @IsEmail()
   email: string;

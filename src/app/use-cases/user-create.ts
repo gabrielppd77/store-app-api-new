@@ -14,7 +14,7 @@ interface Request {
 type Response = void;
 
 @Injectable()
-export class CreateUser {
+export class UserCreate {
   constructor(private userRepository: UserRepository) {}
 
   async execute(request: Request): Promise<Response> {
