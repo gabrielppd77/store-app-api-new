@@ -1,6 +1,6 @@
 import { Body, Controller, Post } from '@nestjs/common';
 
-import { Public } from '@infra/decorators/public.decorator';
+import { Public } from '@infra/http/decorators/public.decorator';
 
 import { UserCreate } from '@app/use-cases/user-create';
 import { UserLogin } from '@app/use-cases/user-login';

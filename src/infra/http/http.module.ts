@@ -1,10 +1,7 @@
-import { APP_GUARD } from '@nestjs/core';
 import { Module } from '@nestjs/common';
-import { JwtModule } from '@nestjs/jwt';
-
-import { AuthGuard } from '@infra/guards/auth.guard';
 
 import { DatabaseModule } from '@infra/database/database.module';
+import { AuthModule } from '@infra/auth/auth.module';
 
 import { UserController } from './controllers/user.controller';
 
@@ -12,21 +9,8 @@ import { UserCreate } from '@app/use-cases/user-create';
 import { UserLogin } from '@app/use-cases/user-login';
 
 @Module({
-  imports: [
-    DatabaseModule,
-    JwtModule.register({
-      secret: process.env.JWT_SECRET,
-      signOptions: { expiresIn: process.env.JWT_EXPIRE },
-    }),
-  ],
+  imports: [DatabaseModule, AuthModule],
   controllers: [UserController],
-  providers: [
-    {
-      provide: APP_GUARD,
-      useClass: AuthGuard,
-    },
-    UserCreate,
-    UserLogin,
-  ],
+  providers: [UserCreate, UserLogin],
 })
 export class HttpModule {}
