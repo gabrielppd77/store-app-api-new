@@ -42,7 +42,6 @@ describe('UserCreate', () => {
     const userCreatedInDB = userRepository.users[0];
 
     expect(userCreatedInDB).toBeTruthy();
-
     expect(userCreatedInDB.id).toBeDefined();
     expect(userCreatedInDB.password).toBeDefined();
     expect(userCreatedInDB.password).not.toEqual(userToCreate.password);

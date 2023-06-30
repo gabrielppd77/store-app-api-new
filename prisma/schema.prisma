@@ -15,5 +15,45 @@ model User {
   email    String @unique
   password String
 
+  company Company?
+
   @@map("users")
+}
+
+model Company {
+  id String @id
+
+  name        String
+  phone       String
+  description String?
+
+  registrationNumber String @unique
+  businessName       String
+
+  responsibleFullName           String
+  responsibleRegistrationNumber String
+
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId String @unique
+
+  address Address?
+
+  @@map("companies")
+}
+
+model Address {
+  id String @id
+
+  cep          String
+  state        String
+  city         String
+  neighborhood String
+  address      String
+  number       Int
+  complement   String?
+
+  company   Company @relation(fields: [companyId], references: [id], onDelete: Cascade)
+  companyId String  @unique
+
+  @@map("addresses")
 }

@@ -5,12 +5,14 @@ import { AuthModule } from '@infra/auth/auth.module';
 
 import { UserController } from './controllers/user.controller';
 
-import { UserCreate } from '@app/use-cases/user-create';
 import { UserLogin } from '@app/use-cases/user-login';
+import { UserCreate } from '@app/use-cases/user-create';
+import { AddressCreate } from '@app/use-cases/address-create';
+import { CompanyCreate } from '@app/use-cases/company-create';
 
 @Module({
   imports: [DatabaseModule, AuthModule],
   controllers: [UserController],
-  providers: [UserCreate, UserLogin],
+  providers: [UserLogin, UserCreate, AddressCreate, CompanyCreate],
 })
 export class HttpModule {}

@@ -18,6 +18,20 @@ export class PrismaUserRepository implements UserRepository {
     return userFinded;
   }
   async create(user: User): Promise<void> {
-    await this.prismaService.user.create({ data: user });
+    await this.prismaService.user.create({
+      data: {
+        ...user,
+        company: {
+          create: {
+            ...user.company,
+            address: {
+              create: {
+                ...user.company.address,
+              },
+            },
+          },
+        },
+      },
+    });
   }
 }
